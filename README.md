@@ -7,3 +7,6 @@ Example:
 ```
 java -javaagent:Log4jCveFix.jar -jar application.jar
 ```
+### Features
+- disable lookup support in Log4j 
+- halt when something tried to initialize `com/sun/jndi/ldap/Connection`
