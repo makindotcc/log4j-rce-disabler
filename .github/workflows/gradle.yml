@@ -29,5 +29,5 @@ jobs:
         arguments: shadowjar
     - uses: actions/upload-artifact@v2
       with:
-        name: Log4jCveFix.zip
+        name: Log4jCveFix
         path: build/libs/Log4jCveFix.jar
