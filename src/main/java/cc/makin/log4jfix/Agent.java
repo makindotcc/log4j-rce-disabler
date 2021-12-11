@@ -22,6 +22,11 @@ public class Agent {
         @Override
         public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined,
                 ProtectionDomain protectionDomain, byte[] classfileBuffer) {
+            if (className.equals("com/sun/jndi/ldap/Connection")) {
+                System.out.println("WARNING! Something tried to initialize com.sun.jndi.ldap.Connection");
+                System.out.println("Calling halt() for security reasons");
+                Runtime.getRuntime().halt(1);
+            }
             // endsWith - tolerate remapped packages
             if (className.endsWith("org/apache/logging/log4j/core/lookup/StrSubstitutor")) {
                 ClassReader classReader = new ClassReader(classfileBuffer);
