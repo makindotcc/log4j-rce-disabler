@@ -31,7 +31,7 @@ public class Agent {
             if (className.endsWith("org/apache/logging/log4j/core/lookup/StrSubstitutor")) {
                 ClassReader classReader = new ClassReader(classfileBuffer);
                 ClassWriter classWriter = new ClassWriter(classReader, 0);
-                classReader.accept(new StrSubstitutorVisitor(ASM8, classWriter), 0);
+                classReader.accept(new StrSubstitutorVisitor(ASM9, classWriter), 0);
                 if (patched) {
                     System.out.println("[LOG4J FIX] Replacing log4j substitutor prefix matcher to none.");
                 } else {
