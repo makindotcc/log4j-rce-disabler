@@ -1,5 +1,8 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
+
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.0.0'
 }
 
 compileJava {
@@ -16,13 +19,24 @@ repositories {
     mavenCentral()
 }
 
-jar {
+dependencies {
+    implementation group: 'org.ow2.asm', name: 'asm', version: '9.2'
+}
+
+shadowJar {
     archiveFileName = 'Log4jCveFix.jar'
     manifest {
         attributes "Premain-Class": "cc.makin.log4jfix.Agent"
         attributes "Can-Retransform-Classes": true
+        attributes "Can-Redefine-Classes": true
     }
 }
+
+task relocateShadowJar(type: ConfigureShadowRelocation) {
+    target = tasks.shadowJar
+    prefix = "cc.makin"
+}
+tasks.shadowJar.dependsOn tasks.relocateShadowJar
 
 test {
     useJUnitPlatform()
