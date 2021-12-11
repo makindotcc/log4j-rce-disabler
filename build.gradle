@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+}
+
+sourceCompatibility = 8
+targetCompatibility = 8
+
+group 'cc.makin'
+version 'Final'
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    archiveFileName = 'Log4jCveFix.jar'
+    manifest {
+        attributes "Premain-Class": "cc.makin.log4jfix.Agent"
+        attributes "Can-Retransform-Classes": true
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
