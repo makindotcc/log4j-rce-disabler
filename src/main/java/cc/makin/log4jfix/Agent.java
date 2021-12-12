@@ -63,6 +63,10 @@ public class Agent {
                 super(api, child);
             }
 
+            // It changes the argument of ``StrMatcher.stringMatcher(DEFAULT_ESCAPE + "{")`` (default escape is '$')
+            // to empty string which results in the creation of a `none matcher`.
+            // https://github.com/apache/logging-log4j2/blob/44569090f1cf1e92c711fb96dfd18cd7dccc72ea/log4j-core/src/main/java/org/apache/logging/log4j/core/lookup/StrSubstitutor.java#L151
+            // https://github.com/apache/logging-log4j2/blob/fd711524b028aa5adece141ecc366d170c771a8b/log4j-core/src/main/java/org/apache/logging/log4j/core/lookup/StrMatcher.java#L207-L212
             @Override
             public void visitLdcInsn(Object value) {
                 if ("${".equals(value)) {
